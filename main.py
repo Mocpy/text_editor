@@ -3,9 +3,6 @@
 import tkinter as tk
 from tkinter import filedialog
 
-#def text():
-#    text_area = tk.Text(root)
-#    text_area.pack()
 
 root = tk.Tk()
 root.title('notepad')
