@@ -40,12 +40,12 @@ class Menues:
 
         menubar.add_cascade(label="File", menu=FileMenu)
 
-        menubar.add_cascade(label="Nápověda", menu=HelpMenu)
+        menubar.add_cascade(label="Appearance", menu=HelpMenu)
 
         FileMenu.add_command(label="Save", command=save_file)
         FileMenu.add_command(label='Open', command=open_file)
         
-
+        
         root.config(menu=menubar)
 
 
