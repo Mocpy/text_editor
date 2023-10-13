@@ -11,7 +11,7 @@ root.geometry("400x410")
 
 
 text_field = tk.Text(root)
-text_field.pack()
+text_field.pack(fill=tk.BOTH, expand=True)
 
 
 def save_file():
