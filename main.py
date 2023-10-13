@@ -3,6 +3,7 @@
 import tkinter as tk
 from tkinter import filedialog
 
+# Create the root window
 root = tk.Tk()
 root.title('notepad')
 root.geometry("400x410")
@@ -15,21 +16,22 @@ class TextField:
 text_field = TextField(root)
 
 def save_file():
-    text = text_field.text_field.get("1.0", "end-1c")
-    file_path = filedialog.asksaveasfilename(defaultextension=".txt")
-    if file_path:
+    text = text_field.text_field.get("1.0", "end-1c")   # Get the text from the text field
+    file_path = filedialog.asksaveasfilename(defaultextension=".txt")   # Ask the user for a file path to save
+    if file_path:   # If a file path is selected, open the file in write mode and write the text to it
         with open(file_path, "w") as file:
             file.write(text)
 
 def open_file():
+    # Define the file types to be displayed in the open file dialog
     filetypes = (
         ('text files', '*.txt'),
         ('All files', '*.*')
     )
-    # show the open file dialog
+    # Show the open file dialog and get the selected file path
     file_path = filedialog.askopenfilename(filetypes=filetypes)
     if file_path:
-        # read the text file and show its content on the Text
+        # If a file path is selected, read the file and display its content in the text field
         with open(file_path, "r") as file:
             content = file.read()
             text_field.text_field.delete('1.0', tk.END)  # Clear existing text
@@ -37,19 +39,25 @@ def open_file():
 
 class Menus:
     def menus(self):
-        menubar = tk.Menu(root)
+        menubar = tk.Menu(root)    # Create the menubar
+        # Create the file and Appearance menus
         FileMenu = tk.Menu(menubar, tearoff=0)
-        HelpMenu = tk.Menu(menubar, tearoff=0)
+        Appearance = tk.Menu(menubar, tearoff=0)
 
+        # Add the file and Appearance menus to the menubar
         menubar.add_cascade(label="File", menu=FileMenu)
-        menubar.add_cascade(label="Appearance", menu=HelpMenu)
-
+        menubar.add_cascade(label="Appearance", menu=Appearance)
+        
+        # Add commands to the file menu
         FileMenu.add_command(label="Save", command=save_file)
         FileMenu.add_command(label='Open', command=open_file)
-
+        
+        # Configure the root window to use the menubar
         root.config(menu=menubar)
 
+# Create an instance of the Menus class
 menus = Menus()
 menus.menus()
 
+# Start the main event loop
 root.mainloop()
