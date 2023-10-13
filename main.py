@@ -3,12 +3,36 @@
 import tkinter as tk
 from tkinter import filedialog
 
-def save_text():
-    text = text_area.get("1.0", "end-1c")
+#def text():
+#    text_area = tk.Text(root)
+#    text_area.pack()
+
+root = tk.Tk()
+root.title('notepad')
+root.geometry("400x410")
+
+
+
+text_field = tk.Text(root)
+text_field.pack()
+
+
+def save_file():
+    text = text_field.get("1.0", "end-1c")
     file_path = filedialog.asksaveasfilename(defaultextension=".txt")
     if file_path:
         with open(file_path, "w") as file:
             file.write(text)
+
+def open_file():
+    filetypes = (
+        ('text files', '*.txt'),
+        ('All files', '*.*')
+    )
+    # show the open file dialog
+    f = filedialog.askopenfile(filetypes=filetypes)
+    # read the text file and show its content on the Text
+    text_field.insert('1.0', f.readlines())
 
 class Menues:
     def menues(self):
@@ -21,7 +45,8 @@ class Menues:
 
         menubar.add_cascade(label="Nápověda", menu=HelpMenu)
 
-        FileMenu.add_command(label="Save", command=save_text)
+        FileMenu.add_command(label="Save", command=save_file)
+        FileMenu.add_command(label='Open', command=open_file)
         
 
         root.config(menu=menubar)
@@ -29,14 +54,6 @@ class Menues:
 
 
 
-root = tk.Tk()
-root.title("Uložit jako .txt")
-root.geometry("400x410")
-
-
-
-text_area = tk.Text(root)
-text_area.pack()
 
 Menues.menues('self')
 
