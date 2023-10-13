@@ -10,10 +10,6 @@ def save_text():
         with open(file_path, "w") as file:
             file.write(text)
 
-def save_button():
-    save_button = tk.Button(root, text="Uložit", command=save_text)
-    save_button.pack()
-
 class Menues:
     def menues(self):
     
