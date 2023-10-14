@@ -8,19 +8,25 @@ root = tk.Tk()
 root.title('notepad')
 root.geometry("400x410")
 
+
 class TextField:
     def __init__(self, root):
         self.text_field = tk.Text(root)
         self.text_field.pack(fill=tk.BOTH, expand=True)
 
+
 text_field = TextField(root)
 
+
 def save_file():
-    text = text_field.text_field.get("1.0", "end-1c")   # Get the text from the text field
-    file_path = filedialog.asksaveasfilename(defaultextension=".txt")   # Ask the user for a file path to save
+    # Get the text from the text field
+    text = text_field.text_field.get("1.0", "end-1c")
+    # Ask the user for a file path to save
+    file_path = filedialog.asksaveasfilename(defaultextension=".txt")
     if file_path:   # If a file path is selected, open the file in write mode and write the text to it
         with open(file_path, "w") as file:
             file.write(text)
+
 
 def open_file():
     # Define the file types to be displayed in the open file dialog
@@ -37,6 +43,7 @@ def open_file():
             text_field.text_field.delete('1.0', tk.END)  # Clear existing text
             text_field.text_field.insert('1.0', content)
 
+
 class Menus:
     def menus(self):
         menubar = tk.Menu(root)    # Create the menubar
@@ -47,13 +54,14 @@ class Menus:
         # Add the file and Appearance menus to the menubar
         menubar.add_cascade(label="File", menu=FileMenu)
         menubar.add_cascade(label="Appearance", menu=Appearance)
-        
+
         # Add commands to the file menu
         FileMenu.add_command(label="Save", command=save_file)
         FileMenu.add_command(label='Open', command=open_file)
-        
+
         # Configure the root window to use the menubar
         root.config(menu=menubar)
+
 
 # Create an instance of the Menus class
 menus = Menus()
