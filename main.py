@@ -70,12 +70,18 @@ class Menus:
         root.config(menu=menubar)
 
 
+class Binds:
+    def __init__(self):
+        root.bind("<Control-s>", save_file)  # Ctrl + S to save file
+        root.bind("<Control-o>", open_file)  # Ctrl + O to open file
+
+
+binds = Binds()
 # Create an instance of the Menus class
 menus = Menus()
 
 # Bind keyboard shortcuts to functions
-root.bind("<Control-s>", save_file)  # Ctrl + S to save file
-root.bind("<Control-o>", open_file)  # Ctrl + O to open file
+
 
 # Start the main event loop
 root.mainloop()
