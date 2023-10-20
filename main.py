@@ -18,7 +18,7 @@ class TextField:
 text_field = TextField(root)
 
 
-def save_file():
+def save_file(event=None):
     # Get the text from the text field
     text = text_field.text_field.get("1.0", "end-1c")
     # Ask the user for a file path to save
@@ -28,7 +28,7 @@ def save_file():
             file.write(text)
 
 
-def open_file():
+def open_file(event=None):
     # Define the file types to be displayed in the open file dialog
     filetypes = (
         ('text files', '*.txt'),
@@ -45,6 +45,9 @@ def open_file():
 
 
 class Menus:
+    def __init__(self):
+        self.menus()
+
     def menus(self):
         menubar = tk.Menu(root)    # Create the menubar
         # Create the file and Appearance menus
@@ -65,7 +68,10 @@ class Menus:
 
 # Create an instance of the Menus class
 menus = Menus()
-menus.menus()
+
+# Bind keyboard shortcuts to functions
+root.bind("<Control-s>", save_file)  # Ctrl + S to save file
+root.bind("<Control-o>", open_file)  # Ctrl + O to open file
 
 # Start the main event loop
 root.mainloop()
