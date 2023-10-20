@@ -2,11 +2,15 @@
 # -*- coding: utf-8 -*-
 import tkinter as tk
 from tkinter import filedialog
+import os
 
 # Create the root window
 root = tk.Tk()
 root.title('notepad')
 root.geometry("400x410")
+
+# Set the default save and open path
+default_path = os.path.expanduser("~/Documents")
 
 
 class TextField:
@@ -22,7 +26,7 @@ def save_file(event=None):
     # Get the text from the text field
     text = text_field.text_field.get("1.0", "end-1c")
     # Ask the user for a file path to save
-    file_path = filedialog.asksaveasfilename(defaultextension=".txt")
+    file_path = filedialog.asksaveasfilename(defaultextension=".txt", initialdir=default_path)
     if file_path:   # If a file path is selected, open the file in write mode and write the text to it
         with open(file_path, "w") as file:
             file.write(text)
@@ -35,7 +39,7 @@ def open_file(event=None):
         ('All files', '*.*')
     )
     # Show the open file dialog and get the selected file path
-    file_path = filedialog.askopenfilename(filetypes=filetypes)
+    file_path = filedialog.askopenfilename(filetypes=filetypes, initialdir=default_path)
     if file_path:
         # If a file path is selected, read the file and display its content in the text field
         with open(file_path, "r") as file:
