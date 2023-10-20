@@ -76,11 +76,8 @@ class Binds:
         root.bind("<Control-o>", open_file)  # Ctrl + O to open file
 
 
-binds = Binds()
-# Create an instance of the Menus class
-menus = Menus()
-
-# Bind keyboard shortcuts to functions
+binds = Binds()    # Create an instance of the Binds class
+menus = Menus()    # Create an instance of the Menus class
 
 
 # Start the main event loop
