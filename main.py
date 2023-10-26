@@ -7,6 +7,11 @@ root = tk.Tk()
 root.title('notepad')
 root.geometry("400x410")
 
+icon_path = tk.PhotoImage(file='notepad.434x512.png')
+
+# Setting icon of main window
+root.iconphoto(False, icon_path)
+
 # Set the default save and open path
 default_path = os.path.expanduser("~/Documents")
 
@@ -48,12 +53,12 @@ def save_file(event=None):
 
 
 def save_file_as(event=None):
-        text = text_field.get_text()
-        file_path = filedialog.asksaveasfilename(defaultextension=".txt", initialdir=default_path)
-        if file_path:
-            with open(file_path, "w") as file:
-                file.write(text)
-            text_field.file_path = file_path
+    text = text_field.get_text()
+    file_path = filedialog.asksaveasfilename(defaultextension=".txt", initialdir=default_path)
+    if file_path:
+        with open(file_path, "w") as file:
+            file.write(text)
+        text_field.file_path = file_path
 
 
 def open_file(event=None):
