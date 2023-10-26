@@ -55,16 +55,16 @@ class Menus:
     def menus(self):
         menubar = tk.Menu(root)    # Create the menubar
         # Create the file and Appearance menus
-        FileMenu = tk.Menu(menubar, tearoff=0)
-        Appearance = tk.Menu(menubar, tearoff=0)
+        filemenu = tk.Menu(menubar, tearoff=0)
+        apperance = tk.Menu(menubar, tearoff=0)
 
         # Add the file and Appearance menus to the menubar
-        menubar.add_cascade(label="File", menu=FileMenu)
-        menubar.add_cascade(label="Appearance", menu=Appearance)
+        menubar.add_cascade(label="File", menu=filemenu)
+        menubar.add_cascade(label="Appearance", menu=apperance)
 
         # Add commands to the file menu
-        FileMenu.add_command(label="Save", command=save_file)
-        FileMenu.add_command(label='Open', command=open_file)
+        filemenu.add_command(label="Save", command=save_file)
+        filemenu.add_command(label='Open', command=open_file)
 
         # Configure the root window to use the menubar
         root.config(menu=menubar)
