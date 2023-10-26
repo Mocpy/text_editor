@@ -48,9 +48,6 @@ def save_file(event=None):
 
 
 def save_file_as(event=None):
-    if text_field.file_path:  # If a file path exists, save the file without the dialog
-        text_field.save_file_without_dialog()
-    else:  # If no file path exists, show the save dialog
         text = text_field.get_text()
         file_path = filedialog.asksaveasfilename(defaultextension=".txt", initialdir=default_path)
         if file_path:
