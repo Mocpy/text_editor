@@ -92,6 +92,7 @@ class Menus:
 class Binds:
     def __init__(self):
         root.bind("<Control-s>", save_file)
+        root.bind("<Control-Shift-S>", save_file_as)
         root.bind("<Control-o>", open_file)
 
 
