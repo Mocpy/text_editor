@@ -1,105 +1,70 @@
-#! /usr/bin/python3
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
-import tkinter as tk
-from tkinter import filedialog
+from tkinter import Tk, Text, Menu, filedialog, PhotoImage
 import os
 
-# Create the root window
-root = tk.Tk()
-root.title('notepad')
-root.geometry("400x410")
-
-icon_path = tk.PhotoImage(file='notepad.434x512.png')
-
-# Setting icon of main window
-root.iconphoto(False, icon_path)
-
-# Set the default save and open path
-default_path = os.path.expanduser("~/Documents")
-
-
-class TextField:
+class NotepadApp:
     def __init__(self, root):
-        self.text_field = tk.Text(root)
-        self.text_field.pack(fill=tk.BOTH, expand=True)
+        self.root = root
+        self.root.title('Notepad')
+        self.root.geometry("400x410")
+
+        icon_path = PhotoImage(file='notepad.434x512.png')
+        self.root.iconphoto(False, icon_path)
+
+        self.default_path = os.path.expanduser("~/Documents")
+        self.text_field = Text(root)
+        self.text_field.pack(fill='both', expand=True)
         self.file_path = None  # Variable to store the file path
 
-    def save_file_without_dialog(self):
-        if self.file_path:  # If a file path exists, save the file without the dialog
-            text = self.text_field.get("1.0", "end-1c")
+        self.setup_menus()
+        self.setup_key_bindings()
+
+    def setup_menus(self):
+        menubar = Menu(self.root)
+        self.root.config(menu=menubar)
+        file_menu = Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="File", menu=file_menu)
+        file_menu.add_command(label='Open', command=self.open_file)
+        file_menu.add_command(label='Save', command=self.save_file)
+        file_menu.add_command(label='Save as', command=self.save_file_as)
+
+    def setup_key_bindings(self):
+        self.root.bind("<Control-s>", self.save_file)
+        self.root.bind("<Control-Shift-S>", self.save_file_as)
+        self.root.bind("<Control-o>", self.open_file)
+
+    def save_file(self, event=None):
+        text = self.text_field.get("1.0", "end-1c")
+        if self.file_path:
             with open(self.file_path, "w") as file:
                 file.write(text)
+        else:
+            file_path = filedialog.asksaveasfilename(defaultextension=".txt", initialdir=self.default_path)
+            if file_path:
+                with open(file_path, "w") as file:
+                    file.write(text)
+                    self.file_path = file_path
 
-    def get_text(self):
-        return self.text_field.get("1.0", "end-1c")
-
-
-text_field = TextField(root)
-
-
-def save_file(event=None):
-    # Get the text from the text field
-    text = text_field.get_text()
-    # Check if a file path exists
-    if text_field.file_path:
-        # Save the file without the dialog
-        with open(text_field.file_path, "w") as file:
-            file.write(text)
-    else:
-        # Show the save dialog
-        file_path = filedialog.asksaveasfilename(defaultextension=".txt", initialdir=default_path)
+    def save_file_as(self, event=None):
+        text = self.text_field.get("1.0", "end-1c")
+        file_path = filedialog.asksaveasfilename(defaultextension=".txt", initialdir=self.default_path)
         if file_path:
             with open(file_path, "w") as file:
                 file.write(text)
-                text_field.file_path = file_path
+            self.file_path = file_path
 
+    def open_file(self, event=None):
+        filetypes = (('text files', '*.txt'), ('All files', '*.*'))
+        file_path = filedialog.askopenfilename(filetypes=filetypes, initialdir=self.default_path)
+        if file_path:
+            with open(file_path, "r") as file:
+                content = file.read()
+                self.text_field.delete('1.0', 'end')
+                self.text_field.insert('1.0', content)
+            self.file_path = file_path
 
-def save_file_as(event=None):
-    text = text_field.get_text()
-    file_path = filedialog.asksaveasfilename(defaultextension=".txt", initialdir=default_path)
-    if file_path:
-        with open(file_path, "w") as file:
-            file.write(text)
-        text_field.file_path = file_path
-
-
-def open_file(event=None):
-    filetypes = (
-        ('text files', '*.txt'),
-        ('All files', '*.*')
-    )
-    file_path = filedialog.askopenfilename(filetypes=filetypes, initialdir=default_path)
-    if file_path:
-        with open(file_path, "r") as file:
-            content = file.read()
-            text_field.text_field.delete('1.0', tk.END)
-            text_field.text_field.insert('1.0', content)
-        text_field.file_path = file_path
-
-
-class Menus:
-    def __init__(self):
-        self.menus()
-
-    def menus(self):
-        menubar = tk.Menu(root)
-        filemenu = tk.Menu(menubar, tearoff=0)
-        apperance = tk.Menu(menubar, tearoff=0)
-        menubar.add_cascade(label="File", menu=filemenu)
-        menubar.add_cascade(label="Appearance", menu=apperance)
-        filemenu.add_command(label='Open', command=open_file)
-        filemenu.add_command(label="Save", command=save_file)
-        filemenu.add_command(label='Save as', command=save_file_as)
-        root.config(menu=menubar)
-
-
-class Binds:
-    def __init__(self):
-        root.bind("<Control-s>", save_file)
-        root.bind("<Control-Shift-S>", save_file_as)
-        root.bind("<Control-o>", open_file)
-
-
-binds = Binds()
-menus = Menus()
-root.mainloop()
+if __name__ == "__main__":
+    root = Tk()
+    app = NotepadApp(root)
+    root.mainloop()
