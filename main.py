@@ -65,6 +65,7 @@ class NotepadApp:
                 self.text_field.insert('1.0', content)
             self.file_path = file_path
 
+
 if __name__ == "__main__":
     root = Tk()
     app = NotepadApp(root)
