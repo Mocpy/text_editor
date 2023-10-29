@@ -3,6 +3,7 @@
 from tkinter import Tk, Text, Menu, filedialog, PhotoImage
 import os
 
+
 class NotepadApp:
     def __init__(self, root):
         self.root = root
