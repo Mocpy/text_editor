@@ -1,3 +1,3 @@
 # Simple Notepyd
-#### Simple notepad in Python.
+**Simple notepad in Python.**
 
