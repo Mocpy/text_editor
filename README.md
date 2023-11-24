@@ -11,3 +11,4 @@
 
 - save file = ctrl + s
 - save file as = ctrl + shift + s
+- open file = ctrl + o
