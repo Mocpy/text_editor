@@ -4,7 +4,7 @@
 ## Task list
 - [x] save and open file
 - [x] save as
-- [ ] key binds
+- [x] key binds
 - [ ] dark gui
 
 ## Keybinds
