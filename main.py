@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-# -*- coding: utf-8 -*-
 from tkinter import Tk, Text, Menu, filedialog, PhotoImage
 import os
 
@@ -31,6 +29,8 @@ class NotepadApp:
         file_menu.add_command(label='Save as', command=self.save_file_as)
 
     def setup_key_bindings(self):
+        self.root.bind("<Control-a>", self.change_text_color)  # Bind Ctrl + A to change_text_color function
+        self.root.bind("<Control-A>", self.change_text_color)  # Bind Ctrl + A (uppercase) to change_text_color function
         self.root.bind("<Control-s>", self.save_file)
         self.root.bind("<Control-Shift-S>", self.save_file_as)
         self.root.bind("<Control-o>", self.open_file)
@@ -64,6 +64,10 @@ class NotepadApp:
                 self.text_field.delete('1.0', 'end')
                 self.text_field.insert('1.0', content)
             self.file_path = file_path
+
+    def change_text_color(self, event=None):
+        self.text_field.tag_add("sel", "1.0", "end")  # Select all text
+        self.text_field.tag_config("sel", background="grey", foreground="light grey")  # Change text color to light grey
 
 
 if __name__ == "__main__":
