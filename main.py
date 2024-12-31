@@ -5,7 +5,7 @@ import os
 class NotepadApp:
     def __init__(self, root):
         self.root = root
-        self.root.title('Simpy notepyd')
+        self.root.title('Simple notepyd')
         self.root.geometry("400x410")
 
         icon_path = PhotoImage(file='notepad.434x512.png')

@@ -1,11 +1,9 @@
 # Simple Notepyd
 **Simple notepad in Python.**
 
-## Task list
-- [x] save and open file
-- [x] save as
-- [x] key binds
-- [ ] switchable theme (dark and light)
+![Text editing](./images/Text_editing.png)
+![Open file](./images/Open_file.png)
+![Save file](./images/Save_as.png)
 
 ## Keybinds
 
