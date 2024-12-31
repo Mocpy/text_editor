@@ -1,4 +1,5 @@
 .spyproject/
 .idea/
 venv/
-notepad.ico
+__pycache__/
+test_main.py
